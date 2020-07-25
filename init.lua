@@ -25,8 +25,11 @@ minetest.register_chatcommand("rules", {
         "no spaming,"..
         "English in public chat,"..
         "No asking admins for privs,"..
+        "pinging more than twice may result in tempban,"..
+        "skybuilds/bases are not allowed,"..
         ","..
         "rules are subject to change,"..
+        "rules last updated: 7/25/2020,"..
         "join our discord at: https://discord.gg/UHjhrAW;1;false]"
 
         minetest.show_formspec(name, "bc_rules:rules_formspec", formspec)
