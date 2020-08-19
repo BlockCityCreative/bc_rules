@@ -28,9 +28,10 @@ minetest.register_chatcommand("rules", {
         "No asking admins for privs,"..
         "pinging more than twice may result in tempban,"..
         "skybuilds/bases are not allowed,"..
+	"controversial topics(religon and politics) are banned,"..
         ","..
         "rules are subject to change,"..
-        "rules last updated: 8/8/2020,"..
+        "rules last updated: 8/19/2020,"..
         "see /info for more information;1;false]"
 
         minetest.show_formspec(name, "bc_rules:rules_formspec", rules_formspec)
