@@ -28,11 +28,11 @@ local info = "Join our discord at: https://discord.gg/UHjhrAW,"..
 
 local function split(s, sep)
 	local fields = {}
-	        
+
 	local sep = sep or " "
 	local pattern = string.format("([^%s]+)", sep)
 	string.gsub(s, pattern, function(c) fields[#fields + 1] = c end)
-			    
+
 	return fields
 end
 
@@ -45,22 +45,21 @@ minetest.register_chatcommand("rules", {
 	description = "Shows BlockCity Rules",
 	func = function(name, param)
 		        rules_formspec =
-        "size[8.01,8.7944685466377]"..
-        "image_button_exit[5.54,8.344169917642;2.605,0.7835;;exit_button;exit]"..
-        "textlist[0.1,0.10836584308626;7.6,7.8091106290672;rules_text;"..
-        "BlockCity Rules,"..
-        ","..rules..";1;false]"
+						"size[8.01,8.7944685466377]"..
+						"image_button_exit[5.54,8.344169917642;2.605,0.7835;;exit_button;exit]"..
+						"textlist[0.1,0.10836584308626;7.6,7.8091106290672;rules_text;"..
+						"BlockCity Rules,"..
+						","..rules..";1;false]"
+						minetest.show_formspec(name, "bc_rules:rules_formspec", rules_formspec)
 
-        minetest.show_formspec(name, "bc_rules:rules_formspec", rules_formspec)
-
-	if minetest.get_player_by_name(name) then
-		return true
-	else
-		for k in pairs(splitRules) do
-			minetest.chat_send_player(name,splitRules[k])
-		end
-		return true
-	end
+						if minetest.get_player_by_name(name) then
+							return true
+						else
+							for k in pairs(splitRules) do
+								minetest.chat_send_player(name,splitRules[k])
+							end
+							return true
+						end
 	end,
 })
 
@@ -76,17 +75,17 @@ minetest.register_chatcommand("info", {
         "textlist[0.1,0.10836584308626;7.6,7.8091106290672;info_text;"..
         "BlockCity info,"..
         ","..
-	info..
-        ";1;false]"
+				info..
+				      ";1;false]"
 
-        minetest.show_formspec(name, "bc_rules:info_formspec", info_formspec)
+				      minetest.show_formspec(name, "bc_rules:info_formspec", info_formspec)
 
-	if minetest.get_player_by_name(name) then
-		return true
-	else
-		for k in pairs(splitInfo) do
-			minetest.chat_send_player(name,splitInfo[k])
-		end
-	end
+				if minetest.get_player_by_name(name) then
+					return true
+				else
+					for k in pairs(splitInfo) do
+						minetest.chat_send_player(name,splitInfo[k])
+					end
+				end
 	end,
 })
