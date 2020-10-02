@@ -26,6 +26,13 @@ local info = "Join our discord at: https://discord.gg/UHjhrAW,"..
 "server github account: https://github.com/BlockCityCreative,"..
 "info last updated: 8/8/2020"
 
+local rules_formspec =
+"size[8.01,8.7944685466377]"..
+"image_button_exit[5.54,8.344169917642;2.605,0.7835;;exit_button;exit]"..
+"textlist[0.1,0.10836584308626;7.6,7.8091106290672;rules_text;"..
+"BlockCity Rules,"..
+","..rules..";1;false]"
+
 local function split(s, sep)
 	local fields = {}
 
@@ -50,15 +57,7 @@ minetest.register_chatcommand("rules", {
 							end
 							return true
 						end
-						rules_formspec =
-						"size[8.01,8.7944685466377]"..
-						"image_button_exit[5.54,8.344169917642;2.605,0.7835;;exit_button;exit]"..
-						"textlist[0.1,0.10836584308626;7.6,7.8091106290672;rules_text;"..
-						"BlockCity Rules,"..
-						","..rules..";1;false]"
 						minetest.show_formspec(name, "bc_rules:rules_formspec", rules_formspec)
-
-
 	end,
 })
 
@@ -86,7 +85,11 @@ minetest.register_chatcommand("info", {
 				minetest.show_formspec(name, "bc_rules:info_formspec", info_formspec)
 
 				return true
-
-
 	end,
 })
+
+minetest.register_on_newplayer(function(ObjectRef)
+    local pname = ObjectRef:get_player_name()
+    minetest.show_formspec(pname, "bc_rules:rules_formspec", rules_formspec)
+end
+)
