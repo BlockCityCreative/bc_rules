@@ -26,6 +26,19 @@ local info = "Join our discord at: https://discord.gg/UHjhrAW,"..
 "server github account: https://github.com/BlockCityCreative,"..
 "info last updated: 8/8/2020"
 
+local function split(s, sep)
+	local fields = {}
+	        
+	local sep = sep or " "
+	local pattern = string.format("([^%s]+)", sep)
+	string.gsub(s, pattern, function(c) fields[#fields + 1] = c end)
+			    
+	return fields
+end
+
+local splitRules = split(rules,",")
+local splitInfo = split(info, ",")
+
 --rules command
 minetest.register_chatcommand("rules", {
 	params = "",
@@ -40,7 +53,14 @@ minetest.register_chatcommand("rules", {
 
         minetest.show_formspec(name, "bc_rules:rules_formspec", rules_formspec)
 
-		return rules, "Done."
+	if minetest.get_player_by_name(name) then
+		return true
+	else
+		for k in pairs(splitRules) do
+			minetest.chat_send_player(name,splitRules[k])
+		end
+		return true
+	end
 	end,
 })
 
@@ -56,11 +76,17 @@ minetest.register_chatcommand("info", {
         "textlist[0.1,0.10836584308626;7.6,7.8091106290672;info_text;"..
         "BlockCity info,"..
         ","..
-				info..
+	info..
         ";1;false]"
 
         minetest.show_formspec(name, "bc_rules:info_formspec", info_formspec)
 
-		return info, "Done."
+	if minetest.get_player_by_name(name) then
+		return true
+	else
+		for k in pairs(splitInfo) do
+			minetest.chat_send_player(name,splitInfo[k])
+		end
+	end
 	end,
 })
