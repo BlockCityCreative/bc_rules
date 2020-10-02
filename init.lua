@@ -44,7 +44,13 @@ minetest.register_chatcommand("rules", {
 	params = "",
 	description = "Shows BlockCity Rules",
 	func = function(name, param)
-		        rules_formspec =
+						if not minetest.get_player_by_name(name) then
+							for k in pairs(splitRules) do
+								minetest.chat_send_player(name,splitRules[k])
+							end
+							return true
+						end
+						rules_formspec =
 						"size[8.01,8.7944685466377]"..
 						"image_button_exit[5.54,8.344169917642;2.605,0.7835;;exit_button;exit]"..
 						"textlist[0.1,0.10836584308626;7.6,7.8091106290672;rules_text;"..
@@ -52,14 +58,7 @@ minetest.register_chatcommand("rules", {
 						","..rules..";1;false]"
 						minetest.show_formspec(name, "bc_rules:rules_formspec", rules_formspec)
 
-						if minetest.get_player_by_name(name) then
-							return true
-						else
-							for k in pairs(splitRules) do
-								minetest.chat_send_player(name,splitRules[k])
-							end
-							return true
-						end
+
 	end,
 })
 
@@ -69,6 +68,12 @@ minetest.register_chatcommand("info", {
 	description = "Shows BlockCity Rules",
 	func = function(name, param)
 
+				if not minetest.get_player_by_name(name) then
+						for k in pairs(splitInfo) do
+								minetest.chat_send_player(name,splitInfo[k])
+						end
+						return true
+				end
         info_formspec =
         "size[8.01,8.7944685466377]"..
         "image_button_exit[5.54,8.344169917642;2.605,0.7835;;exit_button;exit]"..
@@ -76,16 +81,12 @@ minetest.register_chatcommand("info", {
         "BlockCity info,"..
         ","..
 				info..
-				      ";1;false]"
+				";1;false]"
 
-				      minetest.show_formspec(name, "bc_rules:info_formspec", info_formspec)
+				minetest.show_formspec(name, "bc_rules:info_formspec", info_formspec)
 
-				if minetest.get_player_by_name(name) then
-					return true
-				else
-					for k in pairs(splitInfo) do
-						minetest.chat_send_player(name,splitInfo[k])
-					end
-				end
+				return true
+
+
 	end,
 })
